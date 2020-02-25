@@ -50,7 +50,7 @@ const NavWrapper = styled.nav`
   }
   .nav-items {
     position: absolute;
-    top: -20px;
+    top: -12px;
     right: -8px;
     background: var(--primaryColor);
     color: var(--mainWhite);
