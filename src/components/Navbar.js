@@ -3,6 +3,7 @@ import { FaBars, FaCartPlus } from "react-icons/fa";
 import styled from "styled-components";
 import { ProductConsumer } from "../context";
 import logo from "../images/logo.svg";
+import { icons } from "react-icons";
 
 export default function Navbar() {
   return (
@@ -54,7 +55,7 @@ const NavWrapper = styled.nav`
     right: -8px;
     background: var(--primaryColor);
     color: var(--mainWhite);
-    padding:3px;
-    border-radius:45%
+    padding: 3px;
+    border-radius: 45%;
   }
 `;

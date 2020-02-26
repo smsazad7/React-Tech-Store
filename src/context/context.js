@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {linksData} from "./links";
+import { linksData } from "./links";
 
 const ProductContext = React.createContext();
 //Provider
@@ -12,7 +12,8 @@ class ProductProvider extends Component {
       sidebarOpen: false,
       sidecartOpen: false,
       cartItems: 0,
-      links: linksData
+      links: linksData,
+      cart: []
     };
   }
   // handleSidebar
@@ -28,11 +29,11 @@ class ProductProvider extends Component {
     });
   };
   // closeSidecart
-  closeSidecart = () => {
+  closeCart = () => {
     this.setState({ sidecartOpen: false });
   };
   // openSidecrt
-  openSidecart = () => {
+  openCart = () => {
     this.setState({ sidecartOpen: true });
   };
 
@@ -43,8 +44,8 @@ class ProductProvider extends Component {
           ...this.state,
           handleSidebar: this.handleSidebar,
           handleSidecart: this.handleSidecart,
-          closeSidecart: this.closeSidecart,
-          openSidecart: this.openSidecart
+          closeCart: this.closeCart,
+          openCart: this.openCart
         }}
       >
         {this.props.children}

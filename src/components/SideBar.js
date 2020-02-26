@@ -9,16 +9,12 @@ export default function SideBar() {
       {value => {
         const { links, sidebarOpen, handleSidebar } = value;
         return (
-          <SideBarWrapper show={sidebarOpen}>
+          <SideBarWrapper show={sidebarOpen} onClick={handleSidebar}>
             <ul>
               {links.map(link => {
                 return (
                   <li key={link.id}>
-                    <Link
-                      to={link.path}
-                      className="sidebar-link"
-                      onClick={handleSidebar}
-                    >
+                    <Link to={link.path} className="sidebar-link">
                       {link.type}
                     </Link>
                   </li>
