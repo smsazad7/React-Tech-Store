@@ -31,9 +31,9 @@ export default function SideBar() {
 const SideBarWrapper = styled.nav`
   position: fixed;
   left: 0;
-  width: 75%;
+  width: 35%;
   height: 100%;
-  background: var(--mainGrey);
+  background: linear-gradient(var(--primaryRGBA), var(--primaryRGBA));
   border-right: 4px solid var(--primaryColor);
   z-index: 1;
   transition: var(--mainTransition);
@@ -46,13 +46,14 @@ const SideBarWrapper = styled.nav`
     display: block;
     padding: 0.5rem 1.5rem;
     font-size: 1.68rem;
-    color: var(--mainBlack);
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    color: var(--mainWhite);
     text-transform: capitalize;
     background: transparent;
     transition: var(--mainTransition);
   }
   .sidebar-link:hover {
-    background: var(--primaryColor);
+    background: var(--secondaryRGBA);
     color: var(--mainWhite);
     padding: 0.5rem 1.5rem 0.5rem 2.5rem;
     text-decoration: none;

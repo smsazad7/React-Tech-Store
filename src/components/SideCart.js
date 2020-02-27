@@ -19,9 +19,10 @@ export default function SideCart() {
 const SidecartWrapper = styled.div`
   position: fixed;
   right: 0;
-  width: 75%;
+  width: 35%;
   height: 100%;
-  background: var(--mainGrey);
+  background: linear-gradient(var(--primaryRGBA), var(--primaryRGBA));
+  color: var(--mainWhite);
   border-left: 4px solid var(--primaryColor);
   z-index: 1;
   transition: var(--mainTransition);

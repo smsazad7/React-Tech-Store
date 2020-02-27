@@ -1,5 +1,6 @@
 :root {
-  --primaryColor: #5fb7ea;
+  --primaryColor: #61b8ea;
+  --secondaryRGBA:rgba(77, 181, 241, 0.534);
   --primaryRGBA: rgba(0, 0, 0, 0.3);
   --mainGrey: #fafafa;
   --darkGrey: #5f5e5e;
@@ -22,3 +23,23 @@ body {
   background: var(--mainGrey) !important;
   color: var(--mainBlack);
 }
+.main-link{
+  padding: 0.5rem 1rem;
+  background: var(--primaryColor);
+  color: var(--mainWhite);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: var(--mainSpacing);
+  outline: 2px solid var(--primaryColor);
+  outline-offset: 4px;
+  border: none;
+  transition: var(--mainTransition);
+
+}
+.main-link:hover{
+  background: var(--darkGrey);
+  text-decoration: none;
+  color: var(--primaryColor);
+  outline-color: var(--darkGrey);
+}
+

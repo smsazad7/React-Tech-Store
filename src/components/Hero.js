@@ -22,11 +22,13 @@ const HeroWrapper = styled.div`
   background: linear-gradient(var(--primaryRGBA), var(--primaryRGBA)),
     url(${props => props.img}) center/cover no-repeat;
   color: var(--mainWhite);
-  text-transform: uppercase;
+
   .title {
     padding-top: 2rem;
     font-size: 3.5rem;
     text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: var(--mainSpacing);
   }
 `;
 
