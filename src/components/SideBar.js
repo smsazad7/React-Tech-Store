@@ -51,6 +51,7 @@ const SideBarWrapper = styled.nav`
     text-transform: capitalize;
     background: transparent;
     transition: var(--mainTransition);
+    letter-spacing: var(--mainSpacing);
   }
   .sidebar-link:hover {
     background: var(--secondaryRGBA);
