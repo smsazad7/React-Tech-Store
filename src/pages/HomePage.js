@@ -1,6 +1,8 @@
 import React from "react";
 import Hero from "../components/Hero";
 import { Link } from "react-router-dom";
+import Services from "../components/HomePage/Services";
+import FuturedProduct from "../components/HomePage/FuturedProduct";
 
 
 export default function HomePage() {
@@ -11,6 +13,8 @@ export default function HomePage() {
           our products
         </Link>
       </Hero>
+      <Services/>
+      <FuturedProduct/>
     </>
   );
 }
