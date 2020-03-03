@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { linksData } from "./links";
-import{socialData}from "./socialData"
+import { socialData } from "./socialData";
+import { items } from "./productData";
 
 const ProductContext = React.createContext();
 //Provider
@@ -14,10 +15,61 @@ class ProductProvider extends Component {
       sidecartOpen: false,
       cartItems: 0,
       links: linksData,
-      socialIcon:socialData,
-      cart: []
+      socialIcon: socialData,
+      cart: [],
+      cartSubTotal: 0,
+      cartTax: 0,
+      cartTotal: 0,
+      storeProducts: [],
+      filteredProducts: [],
+      featuredProducts: [],
+      singleProduct: {},
+      loading: false
     };
   }
+  componentDidMount() {
+    this.setProducts(items);
+  }
+  setProducts = product => {
+    let storeProducts = product.map(item => {
+      const { id } = item.sys;
+      const image = item.fields.image.fields.file.url;
+      const product = { id, ...item.fields,image };
+      return product;
+    });
+    //featured Products
+    let featuredProducts = storeProducts.filter(item => item.featured === true);
+    this.setState({
+      storeProducts,
+      filteredProducts: storeProducts,
+      featuredProducts,
+      cart: this.getStorageCart(),
+      singleProduct: this.getStorageProduct(),
+      loading: false
+    });
+  };
+  // get cart from local storage
+  getStorageCart = () => {
+    return [];
+  };
+  //get product from local storage
+  getStorageProduct = () => {
+    return {};
+  };
+  //get Totals
+  getTotals = () => {};
+  // add Totals
+  addTotals = () => {};
+  //sync storage
+  syncStorage = () => {};
+  //add to cart
+  addToCart = id => {
+    console.log(`add to cart ${id}`);
+  };
+  //set  single Product
+  setSingleProduct = id => {
+    console.log(`set  single Product${id}`);
+  };
   // handleSidebar
   handleSidebar = () => {
     this.setState({
@@ -47,7 +99,9 @@ class ProductProvider extends Component {
           handleSidebar: this.handleSidebar,
           handleSidecart: this.handleSidecart,
           closeCart: this.closeCart,
-          openCart: this.openCart
+          openCart: this.openCart,
+          addToCart: this.addToCart,
+          setSingleProduct: this.setSingleProduct
         }}
       >
         {this.props.children}
