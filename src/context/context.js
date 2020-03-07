@@ -24,7 +24,7 @@ class ProductProvider extends Component {
       filteredProducts: [],
       featuredProducts: [],
       singleProduct: {},
-      loading: false
+      loading: true
     };
   }
   componentDidMount() {
@@ -56,17 +56,18 @@ class ProductProvider extends Component {
   // get cart from local storage
   getStorageCart = () => {
     let cart;
-    if(localStorage.getItem("cart")){
-      cart=JSON.parse(localStorage.getItem("cart"))
-    }
-    else{
-      cart=[]
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    } else {
+      cart = [];
     }
     return cart;
   };
   //get product from local storage
   getStorageProduct = () => {
-    return {};
+    return localStorage.getItem("singleProduct")
+      ? JSON.parse(localStorage.getItem("singleProduct"))
+      : {};
   };
   //get Totals
   getTotals = () => {
@@ -100,7 +101,7 @@ class ProductProvider extends Component {
   };
   //sync storage
   syncStorage = () => {
-    localStorage.setItem("cart",JSON.stringify(this.state.cart))
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
   };
   //add to cart
   addToCart = id => {
@@ -132,7 +133,12 @@ class ProductProvider extends Component {
   };
   //set  single Product
   setSingleProduct = id => {
-    console.log(`set  single Product${id}`);
+    let product = this.state.storeProducts.find(item => item.id === id);
+    localStorage.setItem("singleProduct", JSON.stringify(product));
+    this.setState({
+      singleProduct: { ...product },
+      loading: false
+    });
   };
   // handleSidebar
   handleSidebar = () => {
