@@ -14,6 +14,7 @@
   font-weight: bold;
   letter-spacing: var(--mainSpacing);
   text-transform: capitalize;
+ 
 }
 .text-main {
   color: var(--primaryColor);

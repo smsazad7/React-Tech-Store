@@ -12,7 +12,7 @@ class ProductProvider extends Component {
 
     this.state = {
       sidebarOpen: false,
-      sidecartOpen: false,
+      cartOpen: false,
       cartItems: 0,
       links: linksData,
       socialIcon: socialData,
@@ -149,16 +149,16 @@ class ProductProvider extends Component {
   // handleSidecart
   handleSidecart = () => {
     this.setState({
-      sidecartOpen: !this.state.sidecartOpen
+      cartOpen: !this.state.cartOpen
     });
   };
   // closeSidecart
   closeCart = () => {
-    this.setState({ sidecartOpen: false });
+    this.setState({ cartOpen: false });
   };
   // openSidecrt
   openCart = () => {
-    this.setState({ sidecartOpen: true });
+    this.setState({ cartOpen: true });
   };
 
   render() {
