@@ -14,7 +14,7 @@ export default function SideCart() {
               {cart.map(item => {
                 return (
                   <li key={item.id} className="cart-item mb-4">
-                    <img src={`../${item.image}`} width="40" alt="img" />
+                    <img src={`../${item.image}`} width="45" alt="img" />
                     <div className="mt-3">
                       <h6 className="text-uppercase">{item.title}</h6>
                       <h6 className="text-title text-capitalize">
@@ -51,10 +51,11 @@ const SidecartWrapper = styled.div`
   transition: var(--mainTransition);
   transform: ${props => (props.show ? "tranlateX(0)" : "translateX(100%)")};
   @media (min-width: 576px) {
-    width: 18rem;
+    width: 25rem;
   }
   overflow: scroll;
   padding: 5rem;
+  padding-top:1rem;
   ul {
     padding: 0 !important;
   }
