@@ -5,7 +5,7 @@ import { ProductConsumer } from "../context";
 
 export default function SideBar() {
   return (
-    <ProductConsumer >
+    <ProductConsumer>
       {value => {
         const { links, sidebarOpen, handleSidebar } = value;
         return (
@@ -31,7 +31,7 @@ export default function SideBar() {
 const SideBarWrapper = styled.nav`
   position: fixed;
   left: 0;
-  width: 35%;
+  width: 50%;
   height: 100%;
   background: linear-gradient(var(--primaryRGBA), var(--primaryRGBA));
   border-right: 4px solid var(--primaryColor);
@@ -44,7 +44,7 @@ const SideBarWrapper = styled.nav`
   }
   .sidebar-link {
     display: block;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.7rem;
     font-size: 1.68rem;
     text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
     color: var(--mainWhite);
@@ -56,7 +56,7 @@ const SideBarWrapper = styled.nav`
   .sidebar-link:hover {
     background: var(--secondaryRGBA);
     color: var(--mainWhite);
-    padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+    padding: 0.5rem 2.5rem 0.5rem 2.5rem;
     text-decoration: none;
   }
   @media (min-width: 576px) {

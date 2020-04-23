@@ -24,21 +24,32 @@ class ProductProvider extends Component {
       filteredProducts: [],
       featuredProducts: [],
       singleProduct: {},
-      loading: true
+      loading: true,
+      search: "",
+      price: 0,
+      min: 0,
+      max: 0,
+      company: "all",
+      shipping: false,
     };
   }
   componentDidMount() {
     this.setProducts(items);
   }
-  setProducts = product => {
-    let storeProducts = product.map(item => {
+  setProducts = (product) => {
+    let storeProducts = product.map((item) => {
       const { id } = item.sys;
       const image = item.fields.image.fields.file.url;
       const product = { id, ...item.fields, image };
       return product;
     });
     //featured Products
-    let featuredProducts = storeProducts.filter(item => item.featured === true);
+    let featuredProducts = storeProducts.filter(
+      (item) => item.featured === true
+    );
+    // get max price
+    let maxPrice = Math.max(...storeProducts.map((item) => item.price));
+
     this.setState(
       {
         storeProducts,
@@ -46,7 +57,9 @@ class ProductProvider extends Component {
         featuredProducts,
         cart: this.getStorageCart(),
         singleProduct: this.getStorageProduct(),
-        loading: false
+        loading: false,
+        price: maxPrice,
+        max: maxPrice,
       },
       () => {
         this.addTotals();
@@ -73,7 +86,7 @@ class ProductProvider extends Component {
   getTotals = () => {
     let subTotal = 0;
     let cartItems = 0;
-    this.state.cart.forEach(item => {
+    this.state.cart.forEach((item) => {
       subTotal += item.total;
       cartItems += item.count;
     });
@@ -86,7 +99,7 @@ class ProductProvider extends Component {
       cartItems,
       subTotal,
       tax,
-      total
+      total,
     };
   };
   // add Totals
@@ -96,7 +109,7 @@ class ProductProvider extends Component {
       cartItems: totals.cartItems,
       cartSubTotal: totals.subTotal,
       cartTax: totals.tax,
-      cartTotal: totals.total
+      cartTotal: totals.total,
     });
   };
   //sync storage
@@ -104,12 +117,12 @@ class ProductProvider extends Component {
     localStorage.setItem("cart", JSON.stringify(this.state.cart));
   };
   //add to cart
-  addToCart = id => {
+  addToCart = (id) => {
     let tempCart = [...this.state.cart];
     let tempProducts = [...this.state.storeProducts];
-    let tempItems = tempCart.find(item => item.id === id);
+    let tempItems = tempCart.find((item) => item.id === id);
     if (!tempItems) {
-      tempItems = tempProducts.find(item => item.id === id);
+      tempItems = tempProducts.find((item) => item.id === id);
       let total = tempItems.price;
       let cartItems = { ...tempItems, count: 1, total };
       tempCart = [...tempCart, cartItems];
@@ -121,7 +134,7 @@ class ProductProvider extends Component {
     this.setState(
       () => {
         return {
-          cart: tempCart
+          cart: tempCart,
         };
       },
       () => {
@@ -132,24 +145,24 @@ class ProductProvider extends Component {
     );
   };
   //set  single Product
-  setSingleProduct = id => {
-    let product = this.state.storeProducts.find(item => item.id === id);
+  setSingleProduct = (id) => {
+    let product = this.state.storeProducts.find((item) => item.id === id);
     localStorage.setItem("singleProduct", JSON.stringify(product));
     this.setState({
       singleProduct: { ...product },
-      loading: false
+      loading: false,
     });
   };
   // handleSidebar
   handleSidebar = () => {
     this.setState({
-      sidebarOpen: !this.state.sidebarOpen
+      sidebarOpen: !this.state.sidebarOpen,
     });
   };
   // handleSidecart
   handleSidecart = () => {
     this.setState({
-      cartOpen: !this.state.cartOpen
+      cartOpen: !this.state.cartOpen,
     });
   };
   // closeSidecart
@@ -160,7 +173,112 @@ class ProductProvider extends Component {
   openCart = () => {
     this.setState({ cartOpen: true });
   };
+  // cart funtionality
+  //increment Items
+  increment = (id) => {
+    let tempCart = [...this.state.cart];
+    const cartItem = tempCart.find((item) => item.id === id);
+    cartItem.count++;
+    cartItem.total = cartItem.count * cartItem.price;
+    cartItem.total = parseFloat(cartItem.total.toFixed(2));
+    this.setState(
+      () => {
+        return {
+          cart: [...tempCart],
+        };
+      },
+      () => {
+        this.addTotals();
+        this.syncStorage();
+      }
+    );
+  };
+  //decrement Items
+  decrement = (id) => {
+    let tempCart = [...this.state.cart];
+    const cartItem = tempCart.find((item) => item.id === id);
+    cartItem.count = cartItem.count - 1;
+    if (cartItem.count === 0) {
+      this.removeItem(id);
+    } else {
+      cartItem.total = cartItem.count * cartItem.price;
+      cartItem.total = parseFloat(cartItem.total.toFixed(2));
+      this.setState(
+        () => {
+          return {
+            cart: [...tempCart],
+          };
+        },
+        () => {
+          this.addTotals();
+          this.syncStorage();
+        }
+      );
+    }
+  };
+  //remove Item
+  removeItem = (id) => {
+    let tempCart = [...this.state.cart];
+    tempCart = tempCart.filter((item) => item.id !== id);
+    this.setState(
+      {
+        cart: [...tempCart],
+      },
+      () => {
+        this.addTotals();
+        this.syncStorage();
+      }
+    );
+  };
+  //clear Cart
+  clearCart = () => {
+    this.setState(
+      {
+        cart: [],
+      },
+      () => {
+        this.addTotals();
+        this.syncStorage();
+      }
+    );
+  };
+  // handle Filtering
+  handleChange = (e) => {
+    const name = e.target.name;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    this.setState(
+      {
+        [name]: value,
+      },
 
+      this.sortData
+    );
+  };
+  sortData = () => {
+    const { storeProducts, price, company, search, shipping } = this.state;
+    let tempPrice = parseInt(price);
+    let tempProducts = [...storeProducts];
+    // filter based on price
+    tempProducts = tempProducts.filter((item) => item.price <= tempPrice);
+    // filter based on company
+    if (company !== "all") {
+      tempProducts = tempProducts.filter((item) => item.company === company);
+    }
+    if (shipping) {
+      tempProducts = tempProducts.filter((item) => item.freeShipping === true);
+    }
+    if (search.length > 0) {
+      tempProducts = tempProducts.filter((item) => {
+        let tempSearch = search.toLocaleLowerCase();
+        let tempTitle = item.title.toLocaleLowerCase().slice(0, search.length);
+        if (tempSearch === tempTitle) {
+          return item;
+        }
+      });
+    }
+    this.setState({ filteredProducts: tempProducts });
+  };
   render() {
     return (
       <ProductContext.Provider
@@ -171,7 +289,12 @@ class ProductProvider extends Component {
           closeCart: this.closeCart,
           openCart: this.openCart,
           addToCart: this.addToCart,
-          setSingleProduct: this.setSingleProduct
+          setSingleProduct: this.setSingleProduct,
+          increment: this.increment,
+          decrement: this.decrement,
+          removeItem: this.removeItem,
+          clearCart: this.clearCart,
+          handleChange: this.handleChange,
         }}
       >
         {this.props.children}

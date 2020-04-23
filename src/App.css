@@ -1,6 +1,6 @@
 :root {
   --primaryColor: #61b8ea;
-  --secondaryRGBA:rgba(95, 183, 234, 0.5);
+  --secondaryRGBA: rgba(95, 183, 234, 0.5);
   --primaryRGBA: rgba(0, 0, 0, 0.3);
   --mainGrey: #fafafa;
   --darkGrey: #5f5e5e;
@@ -9,22 +9,26 @@
   --mainTransition: all 0.3s ease-in-out;
   --mainSpacing: 0.3rem;
 }
+
 .text-title {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   letter-spacing: var(--mainSpacing);
   text-transform: capitalize;
- 
+
 }
+
 .text-main {
   color: var(--primaryColor);
 }
+
 body {
   font-family: "Open Sans", sans-serif !important;
   background: var(--mainGrey) !important;
   color: var(--mainBlack);
 }
-.main-link{
+
+.main-link {
   padding: 0.5rem 1rem;
   background: var(--primaryColor);
   color: var(--mainWhite);
@@ -37,10 +41,14 @@ body {
   transition: var(--mainTransition);
 
 }
-.main-link:hover{
+
+.main-link:hover {
   background: var(--darkGrey);
   text-decoration: none;
   color: var(--primaryColor);
   outline-color: var(--darkGrey);
 }
 
+.cart-icon {
+  cursor: pointer;
+}

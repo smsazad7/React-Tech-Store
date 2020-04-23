@@ -55,12 +55,15 @@ const SidecartWrapper = styled.div`
   }
   overflow: scroll;
   padding: 5rem;
-  padding-top:1rem;
+  padding-top: 1rem;
   ul {
     padding: 0 !important;
   }
   .cart-item {
     list-style-type: none;
+  }
+  .cart-item p {
+    color: #cf0a0a;
   }
   .totla-items {
     color: #cf0a0a;
